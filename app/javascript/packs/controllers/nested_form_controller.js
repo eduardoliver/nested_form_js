@@ -5,19 +5,32 @@ export default class extends Controller {
   static targets = [ "links", "template" ]
 
   initialize(){
-   console.log ("init");
-
+   // console.log ("init");
   }
 
   connect() {
-   console.log ("connect")
+   // console.log ("connect")
   }
 
   add_association(event) {
-    console.log("Click add task")
+    // console.log("Click add task")
     event.preventDefault()
 
     var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, (new Date).getTime())
     this.linksTarget.insertAdjacentHTML("beforebegin", content)
+  }
+
+  remove_association(event) {
+    event.preventDefault()
+
+    let wrapper = event.target.closest(".nested-fields")
+    // console.log ("remove_association", wrapper.dataset.newRecord)
+    if (wrapper.dataset.newRecord == "true") {
+      wrapper.remove()
+    }
+    else {
+      wrapper.querySelector("input[name*='_destroy']").value = 1
+      wrapper.style.display = 'none'
+    }
   }
 }
