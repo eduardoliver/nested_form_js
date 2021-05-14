@@ -23,7 +23,13 @@
 
   <h4 class='mt-3'>Tasks</h4>
 
-  <%= form.fields_for :task do |task| %>
+  <template>
+    <%= form.fields_for :tasks, Task.new, child_index:'NEW_RECORD' do |task| %>
+        <%= render 'task_fields', form: task %>
+    <% end %>
+  </template>
+
+  <%= form.fields_for :tasks do |task| %>
     <%= render 'task_fields', form: task %>
   <% end %>
 
@@ -35,7 +41,6 @@
     <% end %>
 
     <%= form.submit class:'btn btn-primary' %>
-
 
     <% if project.persisted? %>
        <%= link_to 'Cancel', project, class:'btn btn-outline-dark' %>
