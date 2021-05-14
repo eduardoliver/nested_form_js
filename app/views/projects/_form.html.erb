@@ -11,17 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class:'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, class:'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <% if project.persisted? %>
+      <div class="float-right">
+       <%= link_to 'Delete', project, method: :delete, class:'btn btn-outline-danger', data:{confirm:'Are you sure?'} %>
+      </div>
+    <% end %>
+
+    <%= form.submit class:'btn btn-primary' %>
+
+
+    <% if project.persisted? %>
+       <%= link_to 'Cancel', project, class:'btn btn-outline-dark' %>
+    <% else %>
+       <%= link_to 'Cancel', projects_path, class:'btn btn-outline-dark' %>
+    <% end %>
+
   </div>
 <% end %>
