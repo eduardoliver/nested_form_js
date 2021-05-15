@@ -4,17 +4,21 @@
 
 <%= link_to 'New Post', new_post_path %>
 
-<div data-controller="infinite-scroll">
-  <% @posts.each do |post| %>
-    <%= content_tag :div, id: dom_id(post), class:["card", "card-body", "mb-2", dom_class(post)] do %>
-      <div>
-        <%= post.description %>
-        <%= link_to 'Show', post %>
-        <%= link_to 'Edit', edit_post_path(post) %>
-        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
+<div data-controller="infinite-scroll" data-action="scroll@window->infinite-scroll#scroll">
+  <div data-infinite-scroll-target="entries">
+    <% @posts.each do |post| %>
+      <%= content_tag :div, id: dom_id(post), class:["card", "card-body", "mb-2", dom_class(post)] do %>
+        <div>
+          <%= post.description %>
+          <%= link_to 'Show', post %>
+          <%= link_to 'Edit', edit_post_path(post) %>
+          <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 
-<%== pagy_nav(@pagy) %>
+<div data-infinite-scroll-target="pagination">
+  <%== pagy_nav(@pagy) %>
+</div>

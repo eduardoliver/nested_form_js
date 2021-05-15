@@ -3,7 +3,7 @@ import { Controller } from "stimulus"
 import Rails from "@rails/ujs"
 
 export default class extends Controller {
-  static targets = []
+  static targets = ["entries", "pagination"]
 
   initialize(){
     console.log ("infinite scroll init");
@@ -11,5 +11,9 @@ export default class extends Controller {
 
   connect() {
     console.log ("infinite scroll connect");
+  }
+
+  scroll(){
+    console.log ("infinite scroll scroll");    
   }
 }
