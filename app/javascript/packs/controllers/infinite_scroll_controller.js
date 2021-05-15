@@ -16,8 +16,12 @@ export default class extends Controller {
   }
 
   scroll(event){
-    let url = this.paginationTarget.querySelector("a[rel='next']").href
-    console.log ("ininite scroll url for next page", url)
+    let next_page = this.paginationTarget.querySelector("a[rel='next']")
+    console.log ("ininite scroll url for next page", next_page)
+
+    if (next_page == null) { return }
+
+    let url = next_page.href
 
     var body = document.body
     var html = document.documentElement
