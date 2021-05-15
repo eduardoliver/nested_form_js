@@ -12,11 +12,11 @@ export default class extends Controller {
   connect() {
     console.log ("infinite scroll connect");
 //    console.log (this.entriesTarget);
-    console.log (this.paginationTarget);
+//    console.log (this.paginationTarget);
   }
 
   scroll(event){
-    let url = this.paginationTarget.querySelector("a[rel='next']")
+    let url = this.paginationTarget.querySelector("a[rel='next']").href
     console.log ("ininite scroll url for next page", url)
 
     var body = document.body
@@ -25,7 +25,22 @@ export default class extends Controller {
     var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)
 
     if (window.pageYOffset >= height - window.innerHeight) {
-      console.log ("infinite scroll reached bottom");
+      // console.log ("infinite scroll reached bottom");
+      this.loadMore(url)
     }
+  }
+
+  loadMore(url) {
+    Rails.ajax({
+      url: url,
+      type:'GET',
+      dataType: 'json',
+      success: (data) => {
+        // console.log(data)
+        this.entriesTarget.insertAdjacentHTML('beforeend', data.entries)
+        this.paginationTarget.innerHTML = data.pagination
+      }
+    })
+
   }
 }

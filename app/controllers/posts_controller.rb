@@ -4,6 +4,17 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @pagy, @posts = pagy(Post.all)
+
+    respond_to do |format|
+      format.html
+      format.json {
+        #Render into a json stream the HTML content using this partial
+        render json: {
+          entries: render_to_string(partial: 'posts', formats:[:html]),
+          pagination: view_context.pagy_nav(@pagy)
+        }
+      }
+    end
   end
 
   # GET /posts/1 or /posts/1.json
