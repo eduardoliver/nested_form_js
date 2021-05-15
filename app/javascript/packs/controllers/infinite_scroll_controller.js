@@ -11,9 +11,14 @@ export default class extends Controller {
 
   connect() {
     console.log ("infinite scroll connect");
+//    console.log (this.entriesTarget);
+    console.log (this.paginationTarget);
   }
 
   scroll(event){
+    let url = this.paginationTarget.querySelector("a[rel='next']")
+    console.log ("ininite scroll url for next page", url)
+
     var body = document.body
     var html = document.documentElement
 
