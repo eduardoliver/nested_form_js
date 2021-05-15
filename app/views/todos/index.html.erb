@@ -3,9 +3,9 @@
 <h1>Todos</h1>
 
 
-<div data-controller="drag">
+<div data-controller="drag" data-drag-url="/todos/:id/move">
   <% @todos.each do |todo| %>
-    <div class="card card-body">
+    <div data-id="<%= todo.id %>" class="card card-body mb-3">
       <%= todo.description %>
     </div>
   <% end %>
