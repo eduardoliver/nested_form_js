@@ -13,7 +13,14 @@ export default class extends Controller {
     console.log ("infinite scroll connect");
   }
 
-  scroll(){
-    console.log ("infinite scroll scroll");    
+  scroll(event){
+    var body = document.body
+    var html = document.documentElement
+
+    var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)
+
+    if (window.pageYOffset >= height - window.innerHeight) {
+      console.log ("infinite scroll reached bottom");
+    }
   }
 }
